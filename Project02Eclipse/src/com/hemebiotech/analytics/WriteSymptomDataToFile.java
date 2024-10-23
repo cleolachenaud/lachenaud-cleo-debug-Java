@@ -5,27 +5,26 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
 
-public class WriteSymptomDataToFile  implements ISymtomWriter{
-	
+/**
+ * classe qui permet d'écrire un fichier en implémentant l'Interface ISymptomWriter
+ *
+ */
+public class WriteSymptomDataToFile  implements ISymptomWriter{
+	/**
+	 * Methode qui permet d'écrire dans un fichier result.out.txt depuis une map passée en paramètres
+	 * @param symptoms une map de symptomes
+	 */
+
 	@Override
 	public void writeSymptoms(Map<String, Integer> symptoms) {
-		
-			try {
-				BufferedWriter writer = new BufferedWriter(new FileWriter("result.out"));
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter("Project02Eclipse\\result.out.txt"))){
 
-				for (Map.Entry<String, Integer > symptome : symptoms.entrySet())
-				{
-					writer.write(symptome.getKey() + " " + symptome.getValue());
-				}
-				writer.close();
-			} catch (IOException e) {
-				e.printStackTrace();
+			for (Map.Entry<String, Integer> symptome : symptoms.entrySet())
+			{
+				writer.write(symptome.getKey() + " " + symptome.getValue() + "\n");
 			}
-		
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	
-
-	/*le corps de la méthode writeSymptoms qui écrit les symptômes 
-	 * et leurs quantités dans le fichier result.out au même format que précédemment.
-	 */
 }
